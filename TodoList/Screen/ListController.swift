@@ -8,35 +8,54 @@
 
 import Foundation
 
-protocol IlistController {
+protocol IListController {
 	
-	func cellForRowAt(indexPath: IndexPath) -> Tasks?
-	func numberOfRowsInSection() -> Int
+	func cellForRowAt(indexPath: IndexPath) -> RegularTask
+	func numberOfRowsInSection(section: Int) -> Int
+	func numberOfSections() -> Int
+	func titleForHeaderInSection(section: Int) -> String
+	func viewDidLoad()
+	func update() 
 }
 
-final class ListController: IlistController {
+final class ListController: IListController {
 	
-	private let taskManager: any ITaskManager
-	private var tasks: [Tasks]
+	private let tasksRepository: IRepository
+	private var tasks: [Section]
 	
-	init(taskManager: any ITaskManager = TaskManager()) {
-		self.taskManager = taskManager
-		self.tasks = taskManager.getAllTasks().compactMap {
-			if let model = $0 as? ImportantTask {
-				return .important(model)
-			} else if let model = $0 as? RegularTask {
-				return .regular(model)
-			} else {
-				return nil
-			}
+	init(tasksRepository: IRepository) {
+		self.tasksRepository = tasksRepository
+		tasks = []
+	}
+	
+	func viewDidLoad() {
+		tasksRepository.createStub()
+		update()
+	}
+	
+	func numberOfRowsInSection(section: Int) -> Int {
+		switch tasks[section] {
+		case .completed(let tasks), .uncompleted(let tasks):
+			return tasks.count
 		}
 	}
 	
-	func cellForRowAt(indexPath: IndexPath) -> Tasks? {
-		tasks[indexPath.row]
+	func cellForRowAt(indexPath: IndexPath) -> RegularTask {
+		switch tasks[indexPath.section] {
+		case .completed(let tasks), .uncompleted(let tasks):
+			return tasks[indexPath.row]
+		}
 	}
 	
-	func numberOfRowsInSection() -> Int {
+	func update() {
+		tasks = tasksRepository.getSection() as? [Section] ?? []
+	}
+	
+	func numberOfSections() -> Int {
 		tasks.count
+	}
+	
+	func titleForHeaderInSection(section: Int) -> String {
+		tasks[section].title
 	}
 }

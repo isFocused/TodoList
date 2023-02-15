@@ -8,19 +8,15 @@
 
 import Foundation
 
-protocol ITask: Identifiable {
+class RegularTask: Identifiable {
 	
-	var isComplited: Bool { get set }
-	var title: String { get set }
-}
-
-class RegularTask: ITask {
-	
+	var id: UUID
 	var isComplited: Bool
 	var title: String
 	let createDate: Date
 	
 	init(isCompleted: Bool = false, title: String, createDate: Date = Date()) {
+		id = UUID()
 		self.isComplited = isCompleted
 		self.title = title
 		self.createDate = createDate

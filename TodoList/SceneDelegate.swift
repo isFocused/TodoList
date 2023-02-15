@@ -15,7 +15,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-		window?.rootViewController = ListViewController()
+		let repo = TasksRepository(taskManager: TaskManager())
+		let controller = ListController(tasksRepository: repo)
+		let viewController = ListViewController()
+		viewController.controller = controller
+		window?.rootViewController = viewController
 		window?.makeKeyAndVisible()
 	}
 }

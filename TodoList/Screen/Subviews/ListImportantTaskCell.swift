@@ -16,14 +16,32 @@ final class ListImportantTaskCell: UITableViewCell {
 	private var idicatorImageView: UIImageView!
 	
 	private var model: ImportantTask?
+	
+	weak var delegate: TaskCellDelegate?
+	
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		configureCell()
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 }
 
 extension ListImportantTaskCell {
 	
 	/// Set model for cell
 	func setModel(_ model: ImportantTask?) {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "dd.MM.y"
+		guard let model = model else { return }
+		contentView.backgroundColor = model.deadlineDate < Date() ? .systemPink : .white
+		checkBox.isSelected = model.isComplited
+		titleLabel.text = model.title
+		idicatorImageView.image = configureImage(priority: model.priority)
+		deadlineLabel.text = formatter.string(from: model.deadlineDate)
 		self.model = model
-		configureCell()
 	}
 }
 
@@ -31,15 +49,15 @@ extension ListImportantTaskCell: ListCheckBoxDelegate {
 	
 	func update(select: Bool) {
 		model?.isComplited = select
+		delegate?.updateAction()
 	}
 }
 
 private extension ListImportantTaskCell {
 	
 	func configureCell() {
-		guard let date = model?.deadlineDate else { return }
+
 		selectionStyle = .none
-		contentView.backgroundColor = date < Date() ? .systemPink : .white
 		createCheckBox()
 		createTitleLabel()
 		createIdicatorImageView()
@@ -49,7 +67,6 @@ private extension ListImportantTaskCell {
 	func createCheckBox() {
 		checkBox = ListCheckBox(frame: .zero)
 		checkBox.delegate = self
-		checkBox.isSelected = model?.isComplited ?? false
 		checkBox.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(checkBox)
 		checkBox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
@@ -60,7 +77,6 @@ private extension ListImportantTaskCell {
 	
 	func createTitleLabel() {
 		titleLabel = UILabel()
-		titleLabel.text = model?.title
 		titleLabel.numberOfLines = .zero
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(titleLabel)
@@ -72,7 +88,6 @@ private extension ListImportantTaskCell {
 	func createIdicatorImageView() {
 		idicatorImageView = UIImageView()
 		idicatorImageView.translatesAutoresizingMaskIntoConstraints = false
-		idicatorImageView.image = UIImage(named: model?.priorety.nameImage ?? "")
 		contentView.addSubview(idicatorImageView)
 		idicatorImageView.topAnchor.constraint(greaterThanOrEqualTo: checkBox.bottomAnchor, constant: 10).isActive = true
 		idicatorImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
@@ -82,15 +97,23 @@ private extension ListImportantTaskCell {
 	}
 	
 	func createDeadlineLabel() {
-		let formatter = DateFormatter()
-		formatter.dateFormat = "dd.MM.y"
 		deadlineLabel = UILabel()
-		deadlineLabel.text = formatter.string(from: model?.deadlineDate ?? Date())
 		deadlineLabel.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(deadlineLabel)
 		deadlineLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16).isActive = true
 		deadlineLabel.leadingAnchor.constraint(equalTo: idicatorImageView.trailingAnchor, constant: 16).isActive = true
 		deadlineLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16).isActive = true
 		deadlineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
+	}
+	
+	func configureImage(priority: Priority) -> UIImage? {
+		switch priority {
+		case .low:
+			return UIImage(named: "low-priority")
+		case .normal:
+			return UIImage(named: "medium-priority")
+		case .height:
+			return UIImage(named: "high-priority")
+		}
 	}
 }

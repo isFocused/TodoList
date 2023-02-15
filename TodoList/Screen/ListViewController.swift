@@ -10,7 +10,7 @@ import UIKit
 
 final class ListViewController: UIViewController {
 	
-	var controller: IlistController? = ListController()
+	var controller: IListController?
 	
 	private var tableView: UITableView!
 	
@@ -22,22 +22,40 @@ final class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDataSource {
 	
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		controller?.numberOfRowsInSection() ?? .zero
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		controller?.titleForHeaderInSection(section: section)
+	}
+	
+	func numberOfSections(in tableView: UITableView) -> Int {
+		controller?.numberOfSections() ?? .zero
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let task = controller?.cellForRowAt(indexPath: indexPath) else { return UITableViewCell() }
-		switch task {
-		case .regular(let model):
-			let cell = tableView.dequeueReusableCell(withIdentifier: "ListRelurTaskCell", for: indexPath) as? ListRelurTaskCell
-			cell?.setModel(model)
-			return cell ?? UITableViewCell()
-		case .important(let model):
+		if let importTack = task as? ImportantTask {
 			let cell = tableView.dequeueReusableCell(withIdentifier: "ListImportantTaskCell", for: indexPath) as? ListImportantTaskCell
-			cell?.setModel(model)
+			cell?.setModel(importTack)
+			cell?.delegate = self
+			return cell ?? UITableViewCell()
+		} else {
+			let cell = tableView.dequeueReusableCell(withIdentifier: "ListRelurTaskCell", for: indexPath) as? ListRelurTaskCell
+			cell?.setModel(task)
+			cell?.delegate = self
 			return cell ?? UITableViewCell()
 		}
+	}
+	
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		controller?.numberOfRowsInSection(section: section) ?? .zero
+	}
+}
+
+extension ListViewController: TaskCellDelegate {
+	
+	func updateAction() {
+		controller?.update()
+		tableView.reloadData()
 	}
 }
 
@@ -45,6 +63,7 @@ private extension ListViewController {
 	
 	func configureViewController() {
 		view.backgroundColor = .white
+		controller?.viewDidLoad()
 		createTableView()
 	}
 	
