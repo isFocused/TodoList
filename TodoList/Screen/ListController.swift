@@ -15,7 +15,7 @@ protocol IListController {
 	func numberOfSections() -> Int
 	func titleForHeaderInSection(section: Int) -> String
 	func viewDidLoad()
-	func update() 
+	func updateData() 
 }
 
 final class ListController: IListController {
@@ -30,7 +30,7 @@ final class ListController: IListController {
 	
 	func viewDidLoad() {
 		tasksRepository.createStub()
-		update()
+		updateData()
 	}
 	
 	func numberOfRowsInSection(section: Int) -> Int {
@@ -47,7 +47,7 @@ final class ListController: IListController {
 		}
 	}
 	
-	func update() {
+	func updateData() {
 		tasks = tasksRepository.getSection() as? [Section] ?? []
 	}
 	
