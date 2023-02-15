@@ -54,7 +54,7 @@ extension ListViewController: UITableViewDataSource {
 extension ListViewController: TaskCellDelegate {
 	
 	func updateAction() {
-		controller?.update()
+		controller?.updateData()
 		tableView.reloadData()
 	}
 }
