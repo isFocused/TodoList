@@ -8,34 +8,27 @@
 
 import Foundation
 
-enum Priority: Int {
+enum Priority: Int, Comparable {
 	
 	case low = 1
 	case normal
 	case height
 	
-	var nameImage: String {
-		switch self {
-		case .low:
-			return "low-priority"
-		case .normal:
-			return "medium-priority"
-		case .height:
-			return "high-priority"
-		}
+	static func < (lhs: Priority, rhs: Priority) -> Bool {
+		lhs.rawValue < rhs.rawValue
 	}
 }
 
 final class ImportantTask: RegularTask {
 	
-	var priorety: Priority
+	var priority: Priority
 	
 	var deadlineDate: Date {
-		Calendar.current.date(byAdding: .day, value: priorety.rawValue, to: createDate)!
+		Calendar.current.date(byAdding: .day, value: priority.rawValue, to: createDate)!
 	}
 	
 	init(priorety: Priority = .normal, isCompleted: Bool = false, title: String, creatDate: Date = Date()) {
-		self.priorety = priorety
+		self.priority = priorety
 		super.init(isCompleted: isCompleted,title: title, createDate: creatDate)
 	}
 }

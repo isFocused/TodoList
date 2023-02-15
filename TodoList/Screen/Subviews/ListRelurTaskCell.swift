@@ -8,12 +8,28 @@
 
 import UIKit
 
+protocol TaskCellDelegate: AnyObject {
+	
+	func updateAction()
+}
+
 final class ListRelurTaskCell: UITableViewCell {
 
 	private var checkBox: ListCheckBox!
 	private var titleLabel: UILabel!
 	
 	private var model: RegularTask?
+	
+	weak var delegate: TaskCellDelegate?
+	
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		configureCell()
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 }
 
 extension ListRelurTaskCell {
@@ -21,7 +37,8 @@ extension ListRelurTaskCell {
 	/// Set model for cell
 	func setModel(_ model: RegularTask?) {
 		self.model = model
-		configureCell()
+		checkBox.isSelected = model?.isComplited ?? false
+		titleLabel.text = model?.title
 	}
 }
 
@@ -29,6 +46,7 @@ extension ListRelurTaskCell: ListCheckBoxDelegate {
 	
 	func update(select: Bool) {
 		model?.isComplited = select
+		delegate?.updateAction()
 	}
 }
 
@@ -42,7 +60,7 @@ fileprivate extension ListRelurTaskCell {
 	
 	func createCheckBox() {
 		checkBox = ListCheckBox(frame: .zero)
-		checkBox.isSelected = model?.isComplited ?? false
+		checkBox.delegate = self
 		checkBox.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(checkBox)
 		checkBox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
@@ -53,7 +71,6 @@ fileprivate extension ListRelurTaskCell {
 	
 	func createTitleLabel() {
 		titleLabel = UILabel()
-		titleLabel.text = model?.title
 		titleLabel.numberOfLines = .zero
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(titleLabel)
