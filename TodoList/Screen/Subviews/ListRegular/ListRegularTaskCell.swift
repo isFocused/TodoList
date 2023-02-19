@@ -1,5 +1,5 @@
 //
-//  ListRelurTaskCell.swift
+//  ListRegularTaskCell.swift
 //  TodoList
 //
 //  Created by Denis Ivanov on 11.02.2023.
@@ -8,19 +8,30 @@
 
 import UIKit
 
-protocol TaskCellDelegate: AnyObject {
+/// Model for transferring and creating a child grantor
+enum ListCellViewData {
 	
-	func updateAction()
+	case regular(RegularTask)
+	case important(ImportantTask)
 }
 
-final class ListRelurTaskCell: UITableViewCell {
+/// Protocol describing the functionality of the interaction between the view and the presenter of the cell
+protocol ListCellView: AnyObject {
+	
+	/// Display data configuration method
+	/// - Parameter viewData: Passed model value
+	func render(viewData: ListCellViewData)
+}
 
+/// Class describing a cell displaying a regular task
+final class ListRegularTaskCell: UITableViewCell {
+
+	static let identifier = String(describing: type(of: ListRegularTaskCell.self))
+	
 	private var checkBox: ListCheckBox!
 	private var titleLabel: UILabel!
 	
-	private var model: RegularTask?
-	
-	weak var delegate: TaskCellDelegate?
+	private var presenterCell: ListRegularPresentorCell?
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,27 +41,34 @@ final class ListRelurTaskCell: UITableViewCell {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-}
-
-extension ListRelurTaskCell {
 	
-	/// Set model for cell
-	func setModel(_ model: RegularTask?) {
-		self.model = model
-		checkBox.isSelected = model?.isComplited ?? false
-		titleLabel.text = model?.title
+	/// Method that sets the presenter for the current cell
+	/// - Parameter presenter: Created Presenter
+	func setPresenter(_ presenter: IListRegularPresentorCell) {
+		presenterCell = presenter as? ListRegularPresentorCell
+		presenterCell?.view = self
+		presenterCell?.configure()
 	}
 }
 
-extension ListRelurTaskCell: ListCheckBoxDelegate {
+extension ListRegularTaskCell: ListCellView {
+	
+	func render(viewData: ListCellViewData) {
+		if case let .regular(content) = viewData {
+			checkBox.isSelected = content.isComplited
+			titleLabel.text = content.title
+		}
+	}
+}
+
+extension ListRegularTaskCell: ListCheckBoxDelegate {
 	
 	func update(select: Bool) {
-		model?.isComplited = select
-		delegate?.updateAction()
+		presenterCell?.updateStateComplited(value: select)
 	}
 }
 
-fileprivate extension ListRelurTaskCell {
+fileprivate extension ListRegularTaskCell {
 	
 	func configureCell() {
 		selectionStyle = .none

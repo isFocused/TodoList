@@ -7,37 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F4221EF2999820000F98A36 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4221EE2999820000F98A36 /* ListController.swift */; };
+		5F4221EF2999820000F98A36 /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4221EE2999820000F98A36 /* ListPresenter.swift */; };
 		5F4221F12999822400F98A36 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4221F02999822400F98A36 /* TaskManager.swift */; };
-		5F4221F32999856100F98A36 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4221F22999856100F98A36 /* Section.swift */; };
+		5F4221F32999856100F98A36 /* ListSectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4221F22999856100F98A36 /* ListSectionPresenter.swift */; };
 		5F4221F52999857A00F98A36 /* RegularTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4221F42999857A00F98A36 /* RegularTask.swift */; };
 		5F4221F72999859100F98A36 /* ImportantTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4221F62999859100F98A36 /* ImportantTask.swift */; };
 		5F49B974299D6A2200FE4BE3 /* TasksRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F49B973299D6A2200FE4BE3 /* TasksRepository.swift */; };
 		5FD08AB02999862E00EF01DB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD08AAF2999862E00EF01DB /* ListViewController.swift */; };
+		5FDBEB3729A2851100B2646C /* SectionTaskManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBEB3629A2851100B2646C /* SectionTaskManagerAdapter.swift */; };
+		5FDBEB3929A2A71200B2646C /* ListRegularPresentorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBEB3829A2A71200B2646C /* ListRegularPresentorCell.swift */; };
+		5FDBEB3B29A2A75100B2646C /* ListImportantPresenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBEB3A29A2A75100B2646C /* ListImportantPresenterCell.swift */; };
+		5FDBEB3F29A2AB8000B2646C /* SortedTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBEB3E29A2AB8000B2646C /* SortedTaskManager.swift */; };
 		5FE5EF6F2997BD94008FDA05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5EF6E2997BD94008FDA05 /* AppDelegate.swift */; };
 		5FE5EF712997BD94008FDA05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5EF702997BD94008FDA05 /* SceneDelegate.swift */; };
 		5FE5EF782997BD96008FDA05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FE5EF772997BD96008FDA05 /* Assets.xcassets */; };
 		5FE5EF7B2997BD96008FDA05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FE5EF792997BD96008FDA05 /* LaunchScreen.storyboard */; };
-		5FE5EF852997D3F6008FDA05 /* ListRelurTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5EF842997D3F6008FDA05 /* ListRelurTaskCell.swift */; };
+		5FE5EF852997D3F6008FDA05 /* ListRegularTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5EF842997D3F6008FDA05 /* ListRegularTaskCell.swift */; };
 		5FE5EF872997D425008FDA05 /* ListImportantTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5EF862997D425008FDA05 /* ListImportantTaskCell.swift */; };
 		5FE5EF8A2997DC5C008FDA05 /* ListCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5EF892997DC5C008FDA05 /* ListCheckBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5F4221EE2999820000F98A36 /* ListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
+		5F4221EE2999820000F98A36 /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
 		5F4221F02999822400F98A36 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
-		5F4221F22999856100F98A36 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		5F4221F22999856100F98A36 /* ListSectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSectionPresenter.swift; sourceTree = "<group>"; };
 		5F4221F42999857A00F98A36 /* RegularTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTask.swift; sourceTree = "<group>"; };
 		5F4221F62999859100F98A36 /* ImportantTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportantTask.swift; sourceTree = "<group>"; };
 		5F49B973299D6A2200FE4BE3 /* TasksRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksRepository.swift; sourceTree = "<group>"; };
 		5FD08AAF2999862E00EF01DB /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		5FDBEB3629A2851100B2646C /* SectionTaskManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTaskManagerAdapter.swift; sourceTree = "<group>"; };
+		5FDBEB3829A2A71200B2646C /* ListRegularPresentorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRegularPresentorCell.swift; sourceTree = "<group>"; };
+		5FDBEB3A29A2A75100B2646C /* ListImportantPresenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListImportantPresenterCell.swift; sourceTree = "<group>"; };
+		5FDBEB3E29A2AB8000B2646C /* SortedTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedTaskManager.swift; sourceTree = "<group>"; };
+		5FDBEB4029A2B27100B2646C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5FE5EF6B2997BD94008FDA05 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FE5EF6E2997BD94008FDA05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FE5EF702997BD94008FDA05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5FE5EF772997BD96008FDA05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5FE5EF7A2997BD96008FDA05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5FE5EF7C2997BD96008FDA05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5FE5EF842997D3F6008FDA05 /* ListRelurTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRelurTaskCell.swift; sourceTree = "<group>"; };
+		5FE5EF842997D3F6008FDA05 /* ListRegularTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRegularTaskCell.swift; sourceTree = "<group>"; };
 		5FE5EF862997D425008FDA05 /* ListImportantTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListImportantTaskCell.swift; sourceTree = "<group>"; };
 		5FE5EF892997DC5C008FDA05 /* ListCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCheckBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,7 +67,6 @@
 			children = (
 				5F4221F62999859100F98A36 /* ImportantTask.swift */,
 				5F4221F42999857A00F98A36 /* RegularTask.swift */,
-				5F4221F22999856100F98A36 /* Section.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -68,6 +76,8 @@
 			children = (
 				5F4221F02999822400F98A36 /* TaskManager.swift */,
 				5F49B973299D6A2200FE4BE3 /* TasksRepository.swift */,
+				5FDBEB3E29A2AB8000B2646C /* SortedTaskManager.swift */,
+				5FDBEB3629A2851100B2646C /* SectionTaskManagerAdapter.swift */,
 			);
 			path = Logick;
 			sourceTree = "<group>";
@@ -75,16 +85,36 @@
 		5FD08AAE2999861100EF01DB /* Screen */ = {
 			isa = PBXGroup;
 			children = (
-				5F4221EE2999820000F98A36 /* ListController.swift */,
+				5F4221EE2999820000F98A36 /* ListPresenter.swift */,
 				5FD08AAF2999862E00EF01DB /* ListViewController.swift */,
+				5F4221F22999856100F98A36 /* ListSectionPresenter.swift */,
 				5FE5EF882997DADE008FDA05 /* Subviews */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
 		};
+		5FDBEB3C29A2A77100B2646C /* ListRegular */ = {
+			isa = PBXGroup;
+			children = (
+				5FE5EF842997D3F6008FDA05 /* ListRegularTaskCell.swift */,
+				5FDBEB3829A2A71200B2646C /* ListRegularPresentorCell.swift */,
+			);
+			path = ListRegular;
+			sourceTree = "<group>";
+		};
+		5FDBEB3D29A2A79200B2646C /* ListImportant */ = {
+			isa = PBXGroup;
+			children = (
+				5FE5EF862997D425008FDA05 /* ListImportantTaskCell.swift */,
+				5FDBEB3A29A2A75100B2646C /* ListImportantPresenterCell.swift */,
+			);
+			path = ListImportant;
+			sourceTree = "<group>";
+		};
 		5FE5EF622997BD94008FDA05 = {
 			isa = PBXGroup;
 			children = (
+				5FDBEB4029A2B27100B2646C /* README.md */,
 				5FE5EF6D2997BD94008FDA05 /* TodoList */,
 				5FE5EF6C2997BD94008FDA05 /* Products */,
 			);
@@ -116,9 +146,9 @@
 		5FE5EF882997DADE008FDA05 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				5FE5EF842997D3F6008FDA05 /* ListRelurTaskCell.swift */,
-				5FE5EF862997D425008FDA05 /* ListImportantTaskCell.swift */,
 				5FE5EF892997DC5C008FDA05 /* ListCheckBox.swift */,
+				5FDBEB3C29A2A77100B2646C /* ListRegular */,
+				5FDBEB3D29A2A79200B2646C /* ListImportant */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -194,18 +224,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FDBEB3B29A2A75100B2646C /* ListImportantPresenterCell.swift in Sources */,
+				5FDBEB3F29A2AB8000B2646C /* SortedTaskManager.swift in Sources */,
 				5FE5EF6F2997BD94008FDA05 /* AppDelegate.swift in Sources */,
 				5F4221F12999822400F98A36 /* TaskManager.swift in Sources */,
 				5FE5EF8A2997DC5C008FDA05 /* ListCheckBox.swift in Sources */,
-				5F4221F32999856100F98A36 /* Section.swift in Sources */,
+				5F4221F32999856100F98A36 /* ListSectionPresenter.swift in Sources */,
 				5F4221F52999857A00F98A36 /* RegularTask.swift in Sources */,
 				5FD08AB02999862E00EF01DB /* ListViewController.swift in Sources */,
 				5F4221F72999859100F98A36 /* ImportantTask.swift in Sources */,
 				5FE5EF712997BD94008FDA05 /* SceneDelegate.swift in Sources */,
+				5FDBEB3729A2851100B2646C /* SectionTaskManagerAdapter.swift in Sources */,
 				5FE5EF872997D425008FDA05 /* ListImportantTaskCell.swift in Sources */,
-				5FE5EF852997D3F6008FDA05 /* ListRelurTaskCell.swift in Sources */,
-				5F4221EF2999820000F98A36 /* ListController.swift in Sources */,
+				5FE5EF852997D3F6008FDA05 /* ListRegularTaskCell.swift in Sources */,
+				5F4221EF2999820000F98A36 /* ListPresenter.swift in Sources */,
 				5F49B974299D6A2200FE4BE3 /* TasksRepository.swift in Sources */,
+				5FDBEB3929A2A71200B2646C /* ListRegularPresentorCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

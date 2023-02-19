@@ -15,10 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-		let repo = TasksRepository(taskManager: TaskManager())
-		let controller = ListController(tasksRepository: repo)
+		let sort = SortedTaskManager(taskManager: TaskManager())
+		let repo = TasksRepository(taskManager: sort)
+		repo.setTasks()
 		let viewController = ListViewController()
-		viewController.controller = controller
+		let presentor = ListPresenter(view: viewController, sectionManager: SectionForTaskManagerAdapter(taskManager: sort))
+		viewController.presentor = presentor
 		window?.rootViewController = viewController
 		window?.makeKeyAndVisible()
 	}

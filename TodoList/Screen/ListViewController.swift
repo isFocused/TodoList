@@ -8,9 +8,17 @@
 
 import UIKit
 
+/// Protocol describing the implementation for accessing the view
+protocol IListView: AnyObject {
+	
+	/// Method to reload table from presenter
+	func reloadData()
+}
+
+/// Class for displaying table content
 final class ListViewController: UIViewController {
 	
-	var controller: IListController?
+	var presentor: IListPresenter?
 	
 	private var tableView: UITableView!
 	
@@ -20,42 +28,39 @@ final class ListViewController: UIViewController {
 	}
 }
 
+extension ListViewController: IListView {
+	
+	func reloadData() {
+		tableView.reloadData()
+	}
+}
+
 extension ListViewController: UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		controller?.titleForHeaderInSection(section: section)
+		presentor?.titleForHeaderInSection(section: section)
 	}
 	
 	func numberOfSections(in tableView: UITableView) -> Int {
-		controller?.numberOfSections() ?? .zero
+		presentor?.numberOfSections() ?? .zero
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let task = controller?.cellForRowAt(indexPath: indexPath) else { return UITableViewCell() }
-		if let importTack = task as? ImportantTask {
-			let cell = tableView.dequeueReusableCell(withIdentifier: "ListImportantTaskCell", for: indexPath) as? ListImportantTaskCell
-			cell?.setModel(importTack)
-			cell?.delegate = self
+		guard let presentorCell = presentor?.cellForRowAt(indexPath: indexPath) else { return UITableViewCell() }
+		if presentorCell is ListImportantPresenterCell {
+			let cell = tableView.dequeueReusableCell(withIdentifier: ListImportantTaskCell.identifier, for: indexPath) as? ListImportantTaskCell
+			cell?.setPresenter(presentorCell)
 			return cell ?? UITableViewCell()
 		} else {
-			let cell = tableView.dequeueReusableCell(withIdentifier: "ListRelurTaskCell", for: indexPath) as? ListRelurTaskCell
-			cell?.setModel(task)
-			cell?.delegate = self
+			let cell = tableView.dequeueReusableCell(withIdentifier: ListRegularTaskCell.identifier, for: indexPath) as? ListRegularTaskCell
+			cell?.setPresenter(presentorCell)
 			return cell ?? UITableViewCell()
 		}
 	}
 	
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		controller?.numberOfRowsInSection(section: section) ?? .zero
-	}
-}
-
-extension ListViewController: TaskCellDelegate {
-	
-	func updateAction() {
-		controller?.updateData()
-		tableView.reloadData()
+		presentor?.numberOfRowsInSection(section: section) ?? .zero
 	}
 }
 
@@ -63,7 +68,7 @@ private extension ListViewController {
 	
 	func configureViewController() {
 		view.backgroundColor = .white
-		controller?.viewDidLoad()
+		presentor?.fetchTasks()
 		createTableView()
 	}
 	
@@ -71,8 +76,8 @@ private extension ListViewController {
 		tableView = UITableView(frame: .zero)
 		tableView.dataSource = self
 		tableView.tableFooterView = UIView()
-		tableView.register(ListRelurTaskCell.self, forCellReuseIdentifier: "ListRelurTaskCell")
-		tableView.register(ListImportantTaskCell.self, forCellReuseIdentifier: "ListImportantTaskCell")
+		tableView.register(ListRegularTaskCell.self, forCellReuseIdentifier: ListRegularTaskCell.identifier)
+		tableView.register(ListImportantTaskCell.self, forCellReuseIdentifier: ListImportantTaskCell.identifier)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(tableView)
 		tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true

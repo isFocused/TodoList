@@ -8,12 +8,27 @@
 
 import Foundation
 
+/// Protocol declaring a task storage manager
 protocol ITaskManager: AnyObject {
 	
+	/// Method returning all tasks
+	/// - Returns: Task array
 	func getAllTasks() -> [RegularTask]
+	
+	/// Requests a sorted array of completed tasks
+	/// - Returns: Task array
 	func getTasksCompleted() -> [RegularTask]
+	
+	/// Requests a sorted array of uncompleted tasks
+	/// - Returns: Task array
 	func getTasksUnCompleted() -> [RegularTask]
+	
+	/// Adds a new task
+	/// - Parameter task: Task
 	func add(_ task: RegularTask)
+	
+	/// Deletes a task
+	/// - Parameter task: Task
 	func remove(_ task: RegularTask)
 }
 
@@ -21,11 +36,12 @@ final class TaskManager: ITaskManager {
 	
 	private var tasks: [RegularTask]
 	
+	/// Class initializer
 	init() {
 		tasks = []
 	}
 	
-	/// Requests an array of all tasks
+	/// Method returning all tasks
 	/// - Returns: Task array
 	func getAllTasks() -> [RegularTask] {
 		tasks
@@ -34,7 +50,7 @@ final class TaskManager: ITaskManager {
 	/// Requests a sorted array of completed tasks
 	/// - Returns: Task array
 	func getTasksCompleted() -> [RegularTask] {
-		getAllTasks().filter { $0.isComplited }
+		tasks.filter { $0.isComplited }
 	}
 
 	/// Requests a sorted array of uncompleted tasks

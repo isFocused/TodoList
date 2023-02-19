@@ -8,15 +8,20 @@
 
 import UIKit
 
+/// Delegate for handling actions related to ListCheckBox
 protocol ListCheckBoxDelegate: AnyObject {
 	
+	/// Delegate method that registers the change when the element is clicked
+	/// - Parameter select: Current value
 	func update(select: Bool)
 }
 
+/// Class describing the implementation of the CheckBox in the user interface
 final class ListCheckBox: UIControl {
 
 	private var imageView: UIImageView!
 	
+	/// Property delegate
 	weak var delegate: ListCheckBoxDelegate?
 	
 	override var isSelected: Bool {
