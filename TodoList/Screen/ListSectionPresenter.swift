@@ -1,16 +1,18 @@
 //
-//  Section.swift
+//  ListSectionPresenter.swift
 //  TodoList
 //
 //  Created by Denis Ivanov on 12.02.2023.
 //  Copyright © 2023 Denis Ivanov. All rights reserved.
 //
 
-enum Section {
+/// Section presenter
+enum ListSectionPresenter {
 	
-	case completed([RegularTask])
-	case uncompleted([RegularTask])
+	case completed([IListRegularPresentorCell])
+	case uncompleted([IListRegularPresentorCell])
 	
+	/// The property describes the title of the section
 	var title: String {
 		switch self {
 		case .completed:

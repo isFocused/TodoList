@@ -8,16 +8,17 @@
 
 import UIKit
 
+/// A class that describes a cell that displays an important task
 final class ListImportantTaskCell: UITableViewCell {
 
+	static let identifier = String(describing: type(of: ListImportantTaskCell.self))
+	
 	private var checkBox: ListCheckBox!
 	private var titleLabel: UILabel!
 	private var deadlineLabel: UILabel!
 	private var idicatorImageView: UIImageView!
 	
-	private var model: ImportantTask?
-	
-	weak var delegate: TaskCellDelegate?
+	private var presenterCell: ListImportantPresenterCell?
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,36 +28,41 @@ final class ListImportantTaskCell: UITableViewCell {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+	
+	/// Method that sets the presenter for the current cell
+	/// - Parameter presenter: Created Presenter
+	func setPresenter(_ presenter: IListRegularPresentorCell) {
+		presenterCell = presenter as? ListImportantPresenterCell
+		presenterCell?.view = self
+		presenterCell?.configure()
+	}
 }
 
-extension ListImportantTaskCell {
+extension ListImportantTaskCell: ListCellView {
 	
-	/// Set model for cell
-	func setModel(_ model: ImportantTask?) {
-		let formatter = DateFormatter()
-		formatter.dateFormat = "dd.MM.y"
-		guard let model = model else { return }
-		contentView.backgroundColor = model.deadlineDate < Date() ? .systemPink : .white
-		checkBox.isSelected = model.isComplited
-		titleLabel.text = model.title
-		idicatorImageView.image = configureImage(priority: model.priority)
-		deadlineLabel.text = formatter.string(from: model.deadlineDate)
-		self.model = model
+	func render(viewData: ListCellViewData) {
+		if case let .important(content) = viewData {
+			let formatter = DateFormatter()
+			formatter.dateFormat = "dd.MM.y"
+			contentView.backgroundColor = content.deadlineDate < Date() ? .systemPink : .white
+			checkBox.isSelected = content.isComplited
+			titleLabel.text = content.title
+			idicatorImageView.image = configureImage(priority: content.priority)
+			deadlineLabel.text = formatter.string(from: content.deadlineDate)
+		}
 	}
 }
 
 extension ListImportantTaskCell: ListCheckBoxDelegate {
 	
 	func update(select: Bool) {
-		model?.isComplited = select
-		delegate?.updateAction()
+		presenterCell?.updateStateComplited(value: select)
 	}
 }
 
 private extension ListImportantTaskCell {
 	
 	func configureCell() {
-
 		selectionStyle = .none
 		createCheckBox()
 		createTitleLabel()
